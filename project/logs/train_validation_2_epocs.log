@@ -1,0 +1,43 @@
+Printing shape of training dataset
+Iteration #5 loss: 1.4865472316741943
+Iteration #10 loss: 1.1863865852355957
+Iteration #15 loss: 1.1731879711151123
+Iteration #20 loss: 1.0624938011169434
+Iteration #25 loss: 0.874414324760437
+Iteration #30 loss: 0.8284116387367249
+Iteration #35 loss: 0.880394697189331
+Iteration #40 loss: 0.8405576348304749
+Iteration #45 loss: 0.9524421095848083
+Iteration #50 loss: 0.8850556015968323
+Iteration #55 loss: 0.845135509967804
+Iteration #60 loss: 0.823402464389801
+Iteration #65 loss: 0.7847706079483032
+Iteration #70 loss: 0.802903950214386
+Iteration #75 loss: 0.7691216468811035
+Iteration #80 loss: 0.7779216766357422
+Iteration #85 loss: 0.5699756145477295
+Iteration #90 loss: 1.23712158203125
+Iteration #95 loss: 0.9711290597915649
+Iteration #100 loss: 0.6940686702728271
+Iteration #105 loss: 0.6943411827087402
+Iteration #110 loss: 0.5896881818771362
+Iteration #115 loss: 0.7035726308822632
+Iteration #120 loss: 0.6415780782699585
+Iteration #125 loss: 0.628943681716919
+Iteration #130 loss: 0.6114645004272461
+Iteration #135 loss: 0.5481253862380981
+Iteration #140 loss: 0.7655012607574463
+Iteration #145 loss: 0.7406184077262878
+Iteration #150 loss: 0.6612746119499207
+Iteration #155 loss: 0.7601891756057739
+Iteration #160 loss: 0.7252625226974487
+Iteration #165 loss: 0.6677537560462952
+Iteration #170 loss: 0.6110366582870483
+Traceback (most recent call last):
+  File "pytorch-fasterrcnn-train.py", line 142, in <module>
+    outputs = model(images)
+  File "/root/wheat_venv/lib/python3.5/site-packages/torch/nn/modules/module.py", line 532, in __call__
+    result = self.forward(*input, **kwargs)
+  File "/root/wheat_venv/lib/python3.5/site-packages/torchvision/models/detection/generalized_rcnn.py", line 59, in forward
+    raise ValueError("In training mode, targets should be passed")
+ValueError: In training mode, targets should be passed
