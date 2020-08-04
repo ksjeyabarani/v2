@@ -20,12 +20,28 @@ Ran the training and validation in v100 ubuntu boxes. The training was done with
  To run validation on checked-in models
     1. mkdir -p /root/global-wheat-detection/models/
     2. cp models/fasterrcnn_resnet50_fpn_epoch_60.pth /root/global-wheat-detection/models/fasterrcnn_resnet50_fpn_epoch_60.pth
-    3. cd code && python  pytorch-fasterrcnn-validate.py
+    3. cd code/base && python  pytorch-fasterrcnn-validate.py
 #######
 
+### Baseline Models
+  Here we use the pretrained resnet50 model and finetune with the train dataset. No augmentations is performed here
 
-* To train:
-    cd code &&  python pytorch-fasterrcnn-train.py
+* To train for baseline:
+    cd code/base &&  python pytorch-fasterrcnn-train.py <num_epochs> <learning_rate> <momentum> <weight_decay>
+   A model file qualified by above hyper parameters will be stored in model/ directory with name : fasterrcnn_resnet50_fpn_base_epoch_<num_epochs>_<learning_rate>_<momentum>_<decay>.pth
 
-* To run validation:
-    cd code && python  pytorch-fasterrcnn-validate.py
+* To run validation for baseline:
+    cd code && python  pytorch-fasterrcnn-validate.py  <train_num_epochs> <train_learning_rate> <train_momentum> <train_weight_decay>
+  The training parameters are needed to be provided to this script inorder to identify the corresponding model and run evaluation on them.
+
+### Augmented Models
+  Here we use the pretrained resnet50 model or the models from previous step and further finetune with augmented train dataset.
+
+* To train for baseline:
+    cd code/aug &&  python pytorch-fasterrcnn-train.py <base_model_loc> <num_epochs> <learning_rate> <momentum> <weight_decay>
+   A model file qualified by above hyper parameters will be stored in model/directory with name : fasterrcnn_resnet50_fpn_aug_epoch_<num_epochs>_<learning_rate>_<momentum>_<decay>.pth
+
+* To run validation for augmented train model:
+    cd code && python  pytorch-fasterrcnn-validate.py  <train_num_epochs> <train_learning_rate> <train_momentum> <train_weight_decay>
+  The training parameters are needed to be provided to this script inorder to identify the corresponding model and run evaluation on them.
+

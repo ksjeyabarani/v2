@@ -28,15 +28,20 @@ from matplotlib import pyplot as plt
 
 class WheatDataset(Dataset):
 
-    def __init__(self, dataframe, image_dir, transforms=None):
+    def __init__(self, dataframe, image_dir, transforms=None, default_transform=None, append_transformed=False):
         super().__init__()
 
         self.image_ids = dataframe['image_id'].unique()
         self.df = dataframe
         self.image_dir = image_dir
         self.transforms = transforms
+        self.default_transform = default_transform
+        self.append_transformed = append_transformed
 
     def __getitem__(self, index: int):
+        original_index = index
+        if self.append_transformed and self.transforms:
+           index = int(index/2)
 
         image_id = self.image_ids[index]
         records = self.df[self.df['image_id'] == image_id]
@@ -65,7 +70,7 @@ class WheatDataset(Dataset):
         target['area'] = area
         target['iscrowd'] = iscrowd
 
-        if self.transforms:
+        if self.append_transformed and original_index%2 == 1 and self.transforms:
             sample = {
                 'image': image,
                 'bboxes': target['boxes'],
@@ -73,10 +78,20 @@ class WheatDataset(Dataset):
             }
             sample = self.transforms(**sample)
             image = sample['image']
-            
             target['boxes'] = torch.stack(tuple(map(torch.tensor, zip(*sample['bboxes'])))).permute(1, 0)
-
+        elif self.default_transform:
+            sample = {
+                'image': image,
+                'bboxes': target['boxes'],
+                'labels': labels
+            }
+            sample = self.default_transform(**sample)
+            image = sample['image']
+            target['boxes'] = torch.stack(tuple(map(torch.tensor, zip(*sample['bboxes'])))).permute(1, 0)
         return image, target, image_id
 
     def __len__(self) -> int:
-        return self.image_ids.shape[0]
+        mul = 1
+        if self.append_transformed and self.transforms:
+          mul = 2
+        return self.image_ids.shape[0] * mul
