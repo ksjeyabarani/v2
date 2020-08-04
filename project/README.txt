@@ -1,3 +1,6 @@
+Presentation: https://docs.google.com/presentation/d/1crP0JSKXDCP9dK7Wn3RCbLKor1wlv4zDUQKtUmJgNxg/edit?usp=sharing
+White Paper: https://docs.google.com/document/d/19w7EXLD5FOPENaDHvXu_WBm8rTEf7ehLiUdW5Hs7qVQ/edit?usp=sharing
+
 Ran the training and validation in v100 ubuntu boxes. The training was done with 60 epochs. Hyper-parameters used are defaults as in the code.
 
 * Setup:
